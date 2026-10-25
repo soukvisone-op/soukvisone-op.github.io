@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ไฟล์แบบนี้ → ใช้โปรแกรมอะไร · Personal Notes</title>
+<meta name="description" content="ตารางรวม 60+ นามสกุล: magic bytes, โปรแกรม, คำสั่งแรก">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <aside class="sidebar">
+    <a class="brand" href="index.html">
+      <span class="logo">PN</span>
+      <span><b>Personal Notes</b><small>Study notes · Workflow · Reference</small></span>
+    </a>
+    <nav class="nav">
+<a href="index.html"><span class="ico">🏠</span> หน้าแรก</a>
+<div class="nav-group">
+<div class="label">📌 ภาพรวม</div>
+<a class="sub" href="overview.html">ภาพรวมทั้งหมด</a>
+<a class="sub" href="QUICKCARD.html">การ์ดคำสั่งลัด (1 หน้า)</a>
+<a class="sub" href="RANKING.html">อันดับโจทย์ที่ออกบ่อย</a>
+<a class="sub active" href="FILETYPES.html">ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</a>
+<a class="sub" href="APPROVED.html">ซอฟต์แวร์ที่อนุญาต</a>
+</div>
+<div class="nav-group">
+<div class="label">🚀 Workflow</div>
+<a class="sub" href="Workflow/workflow.html">Workflow — ลำดับทำงานเร็ว</a>
+</div>
+<div class="nav-group">
+<div class="label">🔐 Crypto</div>
+<a class="sub" href="Crypto/crypto_cheatsheet.html">Crypto Cheatsheet</a>
+</div>
+<div class="nav-group">
+<div class="label">🧪 Forensics</div>
+<a class="sub" href="Forensics/file_signatures.html">File Signatures</a>
+<a class="sub" href="Forensics/binwalk_commands.html">binwalk &amp; Carving</a>
+<a class="sub" href="Forensics/strings_commands.html">strings</a>
+<a class="sub" href="Forensics/metadata.html">Metadata</a>
+</div>
+<div class="nav-group">
+<div class="label">🌐 Web</div>
+<a class="sub" href="Web/web_cheatsheet.html">Web Cheatsheet</a>
+<a class="sub" href="Web/common_payloads.html">Common Payloads</a>
+<a class="sub" href="Web/commands.html">Web Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">📡 Network</div>
+<a class="sub" href="Network/network_notes.html">Network — อ่านไฟล์ดักจับ</a>
+</div>
+<div class="nav-group">
+<div class="label">🧩 Reverse</div>
+<a class="sub" href="Reverse/reversing_notes.html">Reversing Notes</a>
+<a class="sub" href="Reverse/common_commands.html">Reverse Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">🔍 OSINT</div>
+<a class="sub" href="OSINT/methodology.html">OSINT Methodology</a>
+</div>
+<div class="nav-group">
+<div class="label">🧰 Misc</div>
+<a class="sub" href="Misc/useful_commands.html">Useful Commands</a>
+</div>
+<div class="nav-group"><div class="label">🔎 ค้นหา</div><a class="sub" href="tools.html">Command Index</a><a class="sub" href="index.html#search">ค้นหาทั้งหมด</a></div>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="เมนู">☰</button>
+      <div class="crumb">📌 ภาพรวม / <b>ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</b></div>
+      <button class="icon-btn" id="theme-btn" aria-label="ธีม">🌙</button>
+    </header>
+    <main class="content">
+<div class="toolrow"><a href="tools.html#file">file</a><a href="tools.html#exiftool">exiftool</a><a href="tools.html#binwalk">binwalk</a><a href="tools.html#zsteg">zsteg</a><a href="tools.html#tshark">tshark</a><a href="tools.html#volatility3">volatility3</a></div>
+<h1 id="_1">ไฟล์แบบนี้ → ใช้โปรแกรมอะไร (ตารางรวมทุกชนิด)</h1>
+<blockquote>
+<p>เปิดหน้านี้ก่อน ถ้าไม่แน่ใจว่าไฟล์ที่ได้มาต้องทำอะไรต่อ
+คอลัมน์สุดท้าย = คำสั่งแรกที่ควรพิมพ์ (คัดลอกได้เลย)</p>
+</blockquote>
+<hr />
+<h2 id="0-3">0) กฎ 3 ข้อก่อนเริ่ม</h2>
+<ol>
+<li><strong>อย่าเชื่อนามสกุล</strong> — <code>file</code> ก่อนเสมอ</li>
+<li><strong>ทุกไฟล์ลอง <code>strings</code></strong> — เร็วและฟรี</li>
+<li><strong>ไม่เจอ → <code>binwalk</code></strong> — ดูว่ามีอะไรซ่อนข้างใน</li>
+</ol>
+<pre><code class="language-bash">file target            # 1
+strings -n 6 target    # 2
+binwalk target         # 3
+</code></pre>
+<hr />
+<h2 id="1">1) รูปภาพ</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>นามสกุล / ชนิด</th>
+<th>magic (hex)</th>
+<th>ต้องดูอะไร</th>
+<th>tool</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.png</code></td>
+<td><code>89 50 4E 47</code></td>
+<td>chunk แปลก, ข้อมูลต่อท้าย, LSB</td>
+<td><code>pngcheck</code>, <code>zsteg</code>, <code>exiftool</code></td>
+<td><code>pngcheck -v img.png</code></td>
+</tr>
+<tr>
+<td><code>.jpg</code> <code>.jpeg</code></td>
+<td><code>FF D8 FF</code></td>
+<td>metadata, ไฟล์ต่อท้าย, steghide</td>
+<td><code>exiftool</code>, <code>steghide</code>, <code>binwalk</code></td>
+<td><code>exiftool -a -u -g1 img.jpg</code></td>
+</tr>
+<tr>
+<td><code>.gif</code></td>
+<td><code>47 49 46 38</code></td>
+<td>frame ซ่อน, comment</td>
+<td><code>exiftool</code>, <code>strings</code></td>
+<td><code>strings -n 4 img.gif</code></td>
+</tr>
+<tr>
+<td><code>.bmp</code></td>
+<td><code>42 4D</code></td>
+<td>LSB, palette</td>
+<td><code>zsteg</code>, <code>StegSolve</code></td>
+<td><code>zsteg -a img.bmp</code></td>
+</tr>
+<tr>
+<td><code>.tif</code> <code>.tiff</code></td>
+<td><code>49 49 2A 00</code></td>
+<td>หลาย layer, metadata</td>
+<td><code>exiftool</code>, <code>binwalk</code></td>
+<td><code>binwalk img.tif</code></td>
+</tr>
+<tr>
+<td><code>.webp</code></td>
+<td><code>52 49 46 46</code></td>
+<td>chunk ซ่อน</td>
+<td><code>binwalk</code>, <code>strings</code></td>
+<td><code>binwalk img.webp</code></td>
+</tr>
+<tr>
+<td><code>.svg</code></td>
+<td><code>&lt;svg</code> (text)</td>
+<td>comment, script</td>
+<td><code>cat</code></td>
+<td><code>grep -i -e csg -e flag img.svg</code></td>
+</tr>
+<tr>
+<td><code>.ico</code></td>
+<td><code>00 00 01 00</code></td>
+<td>หลายขนาดซ้อน</td>
+<td><code>binwalk</code>, <code>exiftool</code></td>
+<td><code>binwalk favicon.ico</code></td>
+</tr>
+<tr>
+<td><code>.heic</code></td>
+<td><code>ftypheic</code></td>
+<td>metadata</td>
+<td><code>exiftool</code></td>
+<td><code>exiftool img.heic</code></td>
+</tr>
+<tr>
+<td>QR / บาร์โค้ด</td>
+<td>—</td>
+<td>ข้อความในโค้ด</td>
+<td><code>zbarimg</code></td>
+<td><code>zbarimg -q --raw qr.png</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="2">2) เสียง / วิดีโอ</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>นามสกุล</th>
+<th>magic</th>
+<th>ต้องดูอะไร</th>
+<th>tool</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.wav</code></td>
+<td><code>RIFF….WAVE</code></td>
+<td>spectrogram, LSB, DTMF</td>
+<td><code>sox</code>, <code>multimon-ng</code></td>
+<td><code>sox s.wav -n spectrogram -o spec.png</code></td>
+</tr>
+<tr>
+<td><code>.mp3</code></td>
+<td><code>49 44 33</code> (ID3)</td>
+<td>ข้อความใน tag, เสียงซ่อน</td>
+<td><code>exiftool</code>, <code>ffmpeg</code></td>
+<td><code>exiftool s.mp3</code></td>
+</tr>
+<tr>
+<td><code>.flac</code></td>
+<td><code>66 4C 61 43</code></td>
+<td>comment block</td>
+<td><code>metaflac</code>, <code>exiftool</code></td>
+<td><code>metaflac --list s.flac</code></td>
+</tr>
+<tr>
+<td><code>.ogg</code> <code>.opus</code></td>
+<td><code>4F 67 67 53</code></td>
+<td>comment, เสียง</td>
+<td><code>ffmpeg</code>, <code>sox</code></td>
+<td><code>ffmpeg -i s.ogg out.wav</code></td>
+</tr>
+<tr>
+<td><code>.mp4</code> <code>.mkv</code></td>
+<td><code>ftyp</code> / <code>1A 45 DF A3</code></td>
+<td>subtitle, metadata</td>
+<td><code>ffprobe</code>, <code>mediainfo</code></td>
+<td><code>ffprobe -hide_banner s.mp4</code></td>
+</tr>
+<tr>
+<td><code>.sstv</code> / สัญญาณวิทยุ</td>
+<td>—</td>
+<td>ภาพจากเสียง</td>
+<td><code>qsstv</code>, <code>sstv</code></td>
+<td><code>sstv -d s.wav -o out.png</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>สูตรเสียงที่ใช้บ่อย</strong></p>
+<pre><code class="language-bash">sox s.wav -n spectrogram -o spec.png -x 2000 -y 1025   # ดูข้อความในคลื่น
+multimon-ng -t wav -a DTMF s.wav                        # เสียงกดปุ่ม -&gt; ตัวเลข
+sox s.wav rev.wav reverse                               # เล่นย้อนกลับ
+sox s.wav -n stat                                       # ข้อมูลไฟล์
+</code></pre>
+<hr />
+<h2 id="3">3) ไฟล์บีบอัด / ห่อ</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>นามสกุล</th>
+<th>ต้องดูอะไร</th>
+<th>tool</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.zip</code></td>
+<td>รายชื่อไฟล์, รหัสผ่าน</td>
+<td><code>unzip</code>, <code>zipinfo</code>, <code>7z</code></td>
+<td><code>unzip -l f.zip</code></td>
+</tr>
+<tr>
+<td><code>.zip</code> (ติดรหัส)</td>
+<td>hash → crack</td>
+<td><code>zip2john</code> + <code>john</code></td>
+<td><code>zip2john f.zip &gt; h &amp;&amp; john --wordlist=rockyou.txt h</code></td>
+</tr>
+<tr>
+<td><code>.rar</code></td>
+<td>รหัสผ่าน</td>
+<td><code>unrar</code>, <code>7z</code></td>
+<td><code>7z l f.rar</code></td>
+</tr>
+<tr>
+<td><code>.7z</code></td>
+<td>รหัสผ่าน</td>
+<td><code>7z</code></td>
+<td><code>7z l f.7z</code></td>
+</tr>
+<tr>
+<td><code>.tar</code></td>
+<td>โครงสร้าง</td>
+<td><code>tar</code></td>
+<td><code>tar -tvf f.tar</code></td>
+</tr>
+<tr>
+<td><code>.gz</code> <code>.tgz</code></td>
+<td>ชั้นใน</td>
+<td><code>gunzip</code>, <code>tar</code></td>
+<td><code>file f.gz &amp;&amp; gunzip -c f.gz &gt; out</code></td>
+</tr>
+<tr>
+<td><code>.bz2</code> <code>.xz</code> <code>.zst</code> <code>.lz4</code> <code>.lz</code></td>
+<td>ชั้นใน</td>
+<td><code>bunzip2</code>, <code>xz</code>, <code>zstd</code></td>
+<td><code>xz -dc f.xz &gt; out</code></td>
+</tr>
+<tr>
+<td><code>.cab</code></td>
+<td>ไฟล์ Windows</td>
+<td><code>cabextract</code></td>
+<td><code>cabextract f.cab</code></td>
+</tr>
+<tr>
+<td><code>.docx</code> <code>.xlsx</code> <code>.pptx</code></td>
+<td>จริง ๆ เป็น zip</td>
+<td><code>unzip</code></td>
+<td><code>unzip -o f.docx -d out/</code></td>
+</tr>
+<tr>
+<td><code>.pyz</code> <code>.whl</code></td>
+<td>zip ของ python</td>
+<td><code>unzip</code></td>
+<td><code>unzip -l f.pyz</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="4">4) เอกสาร</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>นามสกุล</th>
+<th>ต้องดูอะไร</th>
+<th>tool</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.pdf</code></td>
+<td>metadata, JS, ไฟล์ฝัง, ข้อความซ่อน</td>
+<td><code>pdfid</code>, <code>pdf-parser</code>, <code>mutool</code>, <code>qpdf</code></td>
+<td><code>pdfid f.pdf</code></td>
+</tr>
+<tr>
+<td><code>.doc</code> <code>.xls</code> <code>.ppt</code> (เก่า)</td>
+<td>macro, OLE stream</td>
+<td><code>olevba</code>, <code>oledump</code></td>
+<td><code>olevba f.doc</code></td>
+</tr>
+<tr>
+<td><code>.docm</code> <code>.xlsm</code></td>
+<td>macro VBA</td>
+<td><code>olevba -c</code></td>
+<td><code>olevba f.docm</code></td>
+</tr>
+<tr>
+<td><code>.rtf</code></td>
+<td>object ฝัง</td>
+<td><code>rtfobj</code></td>
+<td><code>rtfobj f.rtf</code></td>
+</tr>
+<tr>
+<td><code>.eml</code></td>
+<td>header, base64 attachment</td>
+<td><code>cat</code>, <code>python3</code></td>
+<td><code>head -40 f.eml</code></td>
+</tr>
+<tr>
+<td><code>.txt</code> <code>.log</code></td>
+<td>ข้อความ, base64</td>
+<td><code>grep</code>, <code>decode.py</code></td>
+<td><code>grep -a -o 'CSG_FLAG{[^}]*}' f.txt</code></td>
+</tr>
+<tr>
+<td><code>.md</code> <code>.json</code> <code>.xml</code></td>
+<td>โครงสร้าง</td>
+<td><code>jq</code>, <code>xmllint</code></td>
+<td><code>jq . f.json</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>ชุดคำสั่ง PDF</strong></p>
+<pre><code class="language-bash">pdfid f.pdf                              # มี /JS /OpenAction ไหม
+pdftotext -layout f.pdf out.txt          # ดึงข้อความ
+qpdf --qdf --object-streams=disable f.pdf u.pdf   # คลายบีบอัด
+mutool extract f.pdf                     # ดึงรูป/ฟอนต์
+</code></pre>
+<hr />
+<h2 id="5">5) โปรแกรม / ไบนารี</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>นามสกุล</th>
+<th>ต้องดูอะไร</th>
+<th>tool</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ไม่มีนามสกุล (ELF)</td>
+<td>symbol, การป้องกัน</td>
+<td><code>file</code>, <code>checksec</code>, <code>readelf</code></td>
+<td><code>checksec --file=f</code></td>
+</tr>
+<tr>
+<td><code>.exe</code> <code>.dll</code> (PE)</td>
+<td>imports, packer</td>
+<td><code>objdump</code>, <code>die</code>, <code>capa</code></td>
+<td><code>die f.exe</code></td>
+</tr>
+<tr>
+<td><code>.exe</code> ที่แพ็ก</td>
+<td>UPX</td>
+<td><code>upx -d</code></td>
+<td><code>upx -l f.exe</code></td>
+</tr>
+<tr>
+<td><code>.exe</code> (.NET)</td>
+<td>decompile</td>
+<td><code>dnSpy</code></td>
+<td>เปิด dnSpy → Method</td>
+</tr>
+<tr>
+<td><code>.pyc</code></td>
+<td>bytecode</td>
+<td><code>pycdc</code>, <code>uncompyle6</code></td>
+<td><code>pycdc f.pyc</code></td>
+</tr>
+<tr>
+<td>PyInstaller <code>.exe</code></td>
+<td>แตก pyc</td>
+<td><code>pyinstxtractor-ng</code></td>
+<td><code>pyinstxtractor-ng f.exe</code></td>
+</tr>
+<tr>
+<td><code>.apk</code></td>
+<td>smali/java</td>
+<td><code>jadx</code>, <code>apktool</code></td>
+<td><code>jadx -d out f.apk</code></td>
+</tr>
+<tr>
+<td><code>.dex</code></td>
+<td>java</td>
+<td><code>jadx</code>, <code>dex2jar</code></td>
+<td><code>jadx -d out f.dex</code></td>
+</tr>
+<tr>
+<td><code>.jar</code></td>
+<td>class</td>
+<td><code>Bytecode Viewer</code></td>
+<td>เปิด GUI</td>
+</tr>
+<tr>
+<td><code>.so</code> <code>.elf</code></td>
+<td>symbol</td>
+<td><code>readelf -s</code>, <code>r2</code></td>
+<td><code>readelf -s f.so</code></td>
+</tr>
+<tr>
+<td><code>.php</code></td>
+<td>ชั้น eval</td>
+<td><code>matryoshka</code></td>
+<td>ถอด <code>eval(gzinflate(base64))</code></td>
+</tr>
+<tr>
+<td><code>.js</code> (obfuscated)</td>
+<td>deobfuscate</td>
+<td><code>js-beautify</code></td>
+<td><code>js-beautify f.js</code></td>
+</tr>
+<tr>
+<td><code>.ps1</code> <code>.vbs</code></td>
+<td><code>-enc</code> base64</td>
+<td><code>script_deobfuscate.py</code></td>
+<td><code>python3 scripts/…</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="6-memory-log">6) ดิสก์ / memory / log</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ชนิด</th>
+<th>ต้องดูอะไร</th>
+<th>tool</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.img</code> <code>.dd</code> <code>.raw</code> (ดิสก์)</td>
+<td>partition, ไฟล์ที่ลบ</td>
+<td><code>mmls</code>, <code>fls</code>, <code>icat</code></td>
+<td><code>mmls disk.img</code></td>
+</tr>
+<tr>
+<td><code>.E01</code> (EnCase)</td>
+<td>ต้องแปลงก่อน</td>
+<td><code>ewfmount</code>, <code>libewf</code></td>
+<td><code>ewfmount f.E01 /mnt/ewf</code></td>
+</tr>
+<tr>
+<td><code>.vmdk</code> <code>.qcow2</code></td>
+<td>แปลงเป็น raw</td>
+<td><code>qemu-img</code></td>
+<td><code>qemu-img convert -O raw f.vmdk f.raw</code></td>
+</tr>
+<tr>
+<td><code>.raw</code> <code>.mem</code> <code>.dmp</code> (RAM)</td>
+<td>process, command line</td>
+<td><code>volatility3</code></td>
+<td><code>vol -f mem.raw windows.pslist</code></td>
+</tr>
+<tr>
+<td><code>.evtx</code></td>
+<td>event log</td>
+<td><code>chainsaw</code>, <code>hayabusa</code></td>
+<td><code>chainsaw dump f.evtx</code></td>
+</tr>
+<tr>
+<td><code>.hive</code> (registry)</td>
+<td>key ที่แก้</td>
+<td><code>regripper</code></td>
+<td><code>rip.pl -r NTUSER.DAT -f ntuser</code></td>
+</tr>
+<tr>
+<td><code>.db</code> <code>.sqlite</code></td>
+<td>ตาราง/ข้อมูล</td>
+<td><code>sqlite3</code></td>
+<td><code>sqlite3 f.db ".tables"</code></td>
+</tr>
+<tr>
+<td><code>.pcap</code> <code>.pcapng</code></td>
+<td>protocol, ไฟล์ที่โหลด</td>
+<td><code>tshark</code></td>
+<td><code>tshark -r f.pcap -q -z io,phs</code></td>
+</tr>
+<tr>
+<td><code>.pcap</code> (VoIP)</td>
+<td>RTP → wav</td>
+<td><code>rtpdump</code></td>
+<td><code>rtpdump -F payload -f f.pcap &gt; a.raw</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="7">7) ข้อความ / รหัส</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ลักษณะ</th>
+<th>คืออะไร</th>
+<th>tool</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A-Za-z0-9+/=</code> ลงท้าย <code>=</code></td>
+<td>base64</td>
+<td><code>base64 -d</code></td>
+<td><code>base64 -d &lt;&lt;&lt; '…'</code></td>
+</tr>
+<tr>
+<td><code>A-Z2-7</code> + <code>=</code></td>
+<td>base32</td>
+<td><code>base32 -d</code></td>
+<td><code>base32 -d &lt;&lt;&lt; '…'</code></td>
+</tr>
+<tr>
+<td><code>0-9a-f</code> ยาวคู่</td>
+<td>hex</td>
+<td><code>xxd -r -p</code></td>
+<td><code>xxd -r -p &lt;&lt;&lt; '…'</code></td>
+</tr>
+<tr>
+<td><code>.-</code> และ <code>-</code></td>
+<td>morse</td>
+<td><code>decode.py</code></td>
+<td><code>python3 scripts/decode.py "…"</code></td>
+</tr>
+<tr>
+<td>ตัวเลข 0/1 กลุ่มละ 8</td>
+<td>binary</td>
+<td><code>python3</code></td>
+<td><code>python3 scripts/decode.py "…"</code></td>
+</tr>
+<tr>
+<td>ตัวอักษรล้วน อ่านไม่ออก</td>
+<td>Caesar/Vigenère</td>
+<td><code>decode.py</code></td>
+<td>ดู <code>Crypto/crypto_cheatsheet.md</code></td>
+</tr>
+<tr>
+<td>32/40/64 ตัว hex</td>
+<td>hash</td>
+<td><code>hashid</code> → <code>john</code></td>
+<td><code>hashid '&lt;hash&gt;'</code></td>
+</tr>
+<tr>
+<td>จำนวนเต็มก้อนใหญ่ + e + c</td>
+<td>RSA</td>
+<td><code>RsaCtfTool</code></td>
+<td><code>RsaCtfTool.py -n N -e E --uncipher C</code></td>
+</tr>
+<tr>
+<td><code>$2b$</code> / <code>$6$</code></td>
+<td>bcrypt / sha512crypt</td>
+<td><code>john</code></td>
+<td><code>john --format=bcrypt h.txt</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="8">8) ตารางตัดสินใจแบบเร็ว (พิมพ์ตามนี้)</h2>
+<pre><code>file f
+ ├─ image → exiftool → zsteg/steghide → binwalk
+ ├─ audio → sox spectrogram → multimon-ng → ฟังย้อนกลับ
+ ├─ zip/7z → unzip -l → ลองรหัส → zip2john+john
+ ├─ pdf   → pdfid → pdftotext → mutool extract
+ ├─ elf   → strings → checksec → ltrace → gdb
+ ├─ pe    → die → strings -el → upx -d → dnSpy/capa
+ ├─ pyc   → pycdc
+ ├─ apk   → jadx
+ ├─ disk  → mmls → fls -r → icat / tsk_recover
+ ├─ mem   → volatility3 pslist/cmdline
+ ├─ evtx  → chainsaw dump
+ ├─ pcap  → tshark -z io,phs → export objects
+ └─ text  → decode.py (ถอดซ้อน)
+</code></pre>
+<blockquote>
+<p>ทุกบรรทัดมีคำสั่งเต็มในหน้าหมวดนั้น ๆ และใน <code>scripts/</code></p>
+</blockquote>
+<div class="pager"><a class="prev" href="RANKING.html"><span>ก่อนหน้า</span>อันดับโจทย์ที่ออกบ่อย</a><a class="next" href="APPROVED.html"><span>ถัดไป</span>ซอฟต์แวร์ที่อนุญาต</a></div>
+      <div class="footer">แก้ไขเนื้อหาได้ที่ไฟล์ <code>FILETYPES.md</code> แล้วรัน <code>python3 build.py</code> ใหม่ · หน้านี้สร้างแบบ static ไม่ต้องต่อเน็ต</div>
+    </main>
+  </div>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

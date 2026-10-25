@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Network — อ่านไฟล์ดักจับ · Personal Notes</title>
+<meta name="description" content="pcap: protocol, HTTP object, Kerberos, VoIP/RTP, exfil">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <aside class="sidebar">
+    <a class="brand" href="../index.html">
+      <span class="logo">PN</span>
+      <span><b>Personal Notes</b><small>Study notes · Workflow · Reference</small></span>
+    </a>
+    <nav class="nav">
+<a href="../index.html"><span class="ico">🏠</span> หน้าแรก</a>
+<div class="nav-group">
+<div class="label">📌 ภาพรวม</div>
+<a class="sub" href="../overview.html">ภาพรวมทั้งหมด</a>
+<a class="sub" href="../QUICKCARD.html">การ์ดคำสั่งลัด (1 หน้า)</a>
+<a class="sub" href="../RANKING.html">อันดับโจทย์ที่ออกบ่อย</a>
+<a class="sub" href="../FILETYPES.html">ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</a>
+<a class="sub" href="../APPROVED.html">ซอฟต์แวร์ที่อนุญาต</a>
+</div>
+<div class="nav-group">
+<div class="label">🚀 Workflow</div>
+<a class="sub" href="../Workflow/workflow.html">Workflow — ลำดับทำงานเร็ว</a>
+</div>
+<div class="nav-group">
+<div class="label">🔐 Crypto</div>
+<a class="sub" href="../Crypto/crypto_cheatsheet.html">Crypto Cheatsheet</a>
+</div>
+<div class="nav-group">
+<div class="label">🧪 Forensics</div>
+<a class="sub" href="../Forensics/file_signatures.html">File Signatures</a>
+<a class="sub" href="../Forensics/binwalk_commands.html">binwalk &amp; Carving</a>
+<a class="sub" href="../Forensics/strings_commands.html">strings</a>
+<a class="sub" href="../Forensics/metadata.html">Metadata</a>
+</div>
+<div class="nav-group">
+<div class="label">🌐 Web</div>
+<a class="sub" href="../Web/web_cheatsheet.html">Web Cheatsheet</a>
+<a class="sub" href="../Web/common_payloads.html">Common Payloads</a>
+<a class="sub" href="../Web/commands.html">Web Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">📡 Network</div>
+<a class="sub active" href="../Network/network_notes.html">Network — อ่านไฟล์ดักจับ</a>
+</div>
+<div class="nav-group">
+<div class="label">🧩 Reverse</div>
+<a class="sub" href="../Reverse/reversing_notes.html">Reversing Notes</a>
+<a class="sub" href="../Reverse/common_commands.html">Reverse Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">🔍 OSINT</div>
+<a class="sub" href="../OSINT/methodology.html">OSINT Methodology</a>
+</div>
+<div class="nav-group">
+<div class="label">🧰 Misc</div>
+<a class="sub" href="../Misc/useful_commands.html">Useful Commands</a>
+</div>
+<div class="nav-group"><div class="label">🔎 ค้นหา</div><a class="sub" href="../tools.html">Command Index</a><a class="sub" href="../index.html#search">ค้นหาทั้งหมด</a></div>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="เมนู">☰</button>
+      <div class="crumb">📡 Network / <b>Network — อ่านไฟล์ดักจับ</b></div>
+      <button class="icon-btn" id="theme-btn" aria-label="ธีม">🌙</button>
+    </header>
+    <main class="content">
+<div class="toolrow"><a href="../tools.html#tshark">tshark</a><a href="../tools.html#tcpdump">tcpdump</a><a href="../tools.html#nmap">nmap</a><a href="../tools.html#curl">curl</a><a href="../tools.html#impacket">impacket</a><a href="../tools.html#hashcat">hashcat</a><a href="../tools.html#sox">sox</a><a href="../tools.html#rtpdump">rtpdump</a></div>
+<h1 id="network">Network — อ่านไฟล์ดักจับเครือข่าย</h1>
+<blockquote>
+<p>ใช้เมื่อ: ได้ <code>.pcap</code> / <code>.pcapng</code> มา แล้วต้องหาว่าเกิดอะไรขึ้น
+โปรแกรม: <code>tshark</code>, <code>tcpdump</code>, <code>nmap</code>, <code>curl</code>, <code>impacket</code>, <code>hashcat</code>, <code>sox</code>, <code>rtpdump</code></p>
+</blockquote>
+<hr />
+<h2 id="0">0) อันดับที่เจอบ่อย (จากชุดโจทย์ที่ผ่านมา)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>สิ่งที่ต้องทำ</th>
+<th>พบ</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>ดูภาพรวม protocol + ใครคุยกับใคร</td>
+<td>4/5</td>
+<td><code>tshark -r c.pcap -q -z io,phs</code></td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>ดึง HTTP object / ดู request</td>
+<td>4/5</td>
+<td><code>--export-objects http,out/</code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Kerberos / credential</td>
+<td>2/5</td>
+<td>ดู AS-REP → hashcat 18200</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>VoIP / RTP → ไฟล์เสียง</td>
+<td>1/5</td>
+<td><code>rtpdump</code> → <code>sox</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="1">1) ไฟล์แบบไหน → ใช้โปรแกรมอะไร</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ไฟล์/อาการ</th>
+<th>โปรแกรม</th>
+<th>คำสั่งแรก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.pcap</code> <code>.pcapng</code></td>
+<td><code>tshark</code></td>
+<td><code>tshark -r c.pcap -q -z io,phs</code></td>
+</tr>
+<tr>
+<td>ไฟล์ <code>.pcap</code> ใหญ่หลาย GB</td>
+<td><code>tshark -Y</code> + <code>-c</code></td>
+<td><code>tshark -r c.pcap -Y http -c 50</code></td>
+</tr>
+<tr>
+<td>ต้องการดูใน GUI</td>
+<td>Wireshark</td>
+<td>เปิดไฟล์ → Statistics → Protocol Hierarchy</td>
+</tr>
+<tr>
+<td>มีไฟล์โหลดผ่าน HTTP</td>
+<td><code>tshark --export-objects</code></td>
+<td><code>tshark -r c.pcap --export-objects http,out/ -q</code></td>
+</tr>
+<tr>
+<td>เสียงใน pcap (VoIP)</td>
+<td><code>rtpdump</code> / <code>sox</code></td>
+<td><code>rtpdump -F payload -f c.pcap &gt; a.raw</code></td>
+</tr>
+<tr>
+<td>hash จาก Kerberos</td>
+<td><code>hashcat</code></td>
+<td><code>hashcat -m 18200 h.txt rockyou.txt</code></td>
+</tr>
+<tr>
+<td>ต้อง replay request</td>
+<td><code>curl</code></td>
+<td>คัดลอก header จาก <code>tshark -T fields</code></td>
+</tr>
+<tr>
+<td>ต้องสแกนเครื่องปลายทาง</td>
+<td><code>nmap</code></td>
+<td><code>nmap -sV -p- host</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="2-30">2) ภาพรวมใน 30 วินาที</h2>
+<pre><code class="language-bash"># protocol ทั้งหมด (ดูว่ามีอะไรบ้าง)
+tshark -r c.pcap -q -z io,phs
+
+# ใครคุยกับใคร ปริมาณเท่าไร
+tshark -r c.pcap -q -z conv,ip
+tshark -r c.pcap -q -z conv,tcp
+
+# endpoints (IP/port ที่มีบทบาท)
+tshark -r c.pcap -q -z endpoints,ip
+</code></pre>
+<hr />
+<h2 id="3-http-dns">3) HTTP / DNS</h2>
+<pre><code class="language-bash"># request ทั้งหมด
+tshark -r c.pcap -Y http.request -T fields \
+       -e frame.number -e ip.src -e ip.dst \
+       -e http.request.method -e http.host -e http.request.uri
+
+# ดึงไฟล์ที่โหลดผ่าน HTTP
+mkdir -p out &amp;&amp; tshark -r c.pcap --export-objects http,out -q
+ls -la out/
+
+# header ที่น่าสนใจ (auth, cookie, custom)
+tshark -r c.pcap -Y http -T fields -e http.authorization -e http.cookie | sort -u
+
+# DNS ที่ถูกถาม
+tshark -r c.pcap -Y dns.flags.response==0 -T fields -e dns.qry.name | sort -u
+
+# ตามดู stream แบบข้อความ
+tshark -r c.pcap -q -z follow,tcp,ascii,0
+</code></pre>
+<blockquote>
+<p>โจทย์ชอบซ่อนข้อมูลใน <code>Host:</code> หรือ <code>User-Agent:</code> ที่ผิดปกติ — ไล่ดูทุก field</p>
+</blockquote>
+<hr />
+<h2 id="4">4) ข้อมูลรับรองที่ไม่เข้ารหัส</h2>
+<pre><code class="language-bash">tshark -r c.pcap -Y 'ftp || telnet || http.authorization || smtp || pop || imap' \
+  -T fields -e frame.number -e ip.src -e ip.dst \
+  -e http.authorization -e ftp.request.command -e ftp.request.arg \
+  -e telnet.data -e smtp.req.parameter
+</code></pre>
+<p>หาคำที่มักเป็นรหัส:</p>
+<pre><code class="language-bash">tshark -r c.pcap -T fields -e data.text 2&gt;/dev/null | tr ',' '\n' | grep -i -E 'pass|user|key'
+</code></pre>
+<hr />
+<h2 id="5-kerberos-smb-ad">5) Kerberos / SMB (โจทย์แนว AD)</h2>
+<pre><code class="language-bash"># หา AS-REQ / AS-REP
+tshark -r c.pcap -Y kerberos -T fields -e kerberos.CNameString -e kerberos.etype | head
+
+# ดู SMB2 operation
+tshark -r c.pcap -Y smb2 -T fields -e smb2.filename | sort -u
+
+# ถอด hash จาก pcap (ทำในเครื่อง)
+# AS-REP -&gt; $krb5asrep$... -&gt; hashcat -m 18200
+# TGS-REP -&gt; $krb5tgs$... -&gt; hashcat -m 13100
+hashcat -m 18200 asrep.txt /usr/share/wordlists/rockyou.txt
+hashcat -m 13100 tgs.txt   /usr/share/wordlists/rockyou.txt
+</code></pre>
+<p>ถ้ามีไฟล์ <code>.kirbi</code> หรือ traffic ที่ replay ได้ ให้ใช้ <code>impacket</code>:</p>
+<pre><code class="language-bash">GetNPUsers.py domain.local/ -dc-ip 10.0.0.1 -no-pass -usersfile users.txt
+GetUserSPNs.py domain.local/user:pass -dc-ip 10.0.0.1 -request
+</code></pre>
+<hr />
+<h2 id="6-voip-rtp">6) VoIP / RTP → ฟังเสียง</h2>
+<pre><code class="language-bash"># ดึง payload ของ RTP ออกมาเป็น raw
+rtpdump -F payload -f call.pcap &gt; audio.raw
+
+# แปลงเป็น wav (PCM 8kHz mono ปกติ)
+sox -t raw -r 8000 -e mu-law -b 8 -c 1 audio.raw audio.wav
+
+# ฟัง + ทำ spectrogram
+sox audio.wav -n spectrogram -o spec.png -x 2000 -y 1025
+</code></pre>
+<p>ถ้าเป็น SIP ให้ดู <code>sdp</code> เพื่อรู้ codec/port:</p>
+<pre><code class="language-bash">tshark -r call.pcap -Y sip -T fields -e sip.from.user -e sip.to.user -e sdp.media.port
+</code></pre>
+<hr />
+<h2 id="7-exfil">7) ทางที่ข้อมูลออก (exfil)</h2>
+<pre><code class="language-bash"># packet ที่ใหญ่ผิดปกติ
+tshark -r c.pcap -q -z io,stat,0,&quot;SUM(frame.len)frame.len&quot; | head -30
+
+# DNS ที่ชื่อยาวผิดปกติ (tunnel)
+tshark -r c.pcap -Y dns -T fields -e dns.qry.name | awk '{print length, $0}' | sort -rn | head
+
+# ICMP ที่มี payload เยอะ
+tshark -r c.pcap -Y icmp -T fields -e data | head
+</code></pre>
+<hr />
+<h2 id="8">8) เทคนิคจากโจทย์ที่ผ่านมา</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>เคส</th>
+<th>สิ่งที่เจอ</th>
+<th>วิธีแก้</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Man-in-the-flag</td>
+<td>request ไป S3 พร้อม header เข้ารหัสฝั่งลูกค้า</td>
+<td>replay ด้วย <code>curl</code> + header ชุดเดิม</td>
+</tr>
+<tr>
+<td>Silent call</td>
+<td>RTP ใน pcap</td>
+<td><code>rtpdump</code> → <code>sox</code> → ฟัง</td>
+</tr>
+<tr>
+<td>Silent signals</td>
+<td>สัญญาณเสียง/DTMF</td>
+<td><code>multimon-ng -a DTMF</code></td>
+</tr>
+<tr>
+<td>SMB3 + Kerberos</td>
+<td>AS-REP hash</td>
+<td><code>hashcat -m 18200</code></td>
+</tr>
+<tr>
+<td>Relayed &amp; Betrayed</td>
+<td>NTLM relay</td>
+<td>ดู <code>ntlmssp</code> ใน pcap → hash</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="9">9) คำสั่งที่ใช้บ่อย (คัดลอก)</h2>
+<pre><code class="language-bash">tshark -r c.pcap -q -z io,phs
+tshark -r c.pcap -q -z conv,tcp
+tshark -r c.pcap -Y http.request -T fields -e http.host -e http.request.uri
+tshark -r c.pcap --export-objects http,out -q
+tshark -r c.pcap -Y dns.flags.response==0 -T fields -e dns.qry.name | sort -u
+tshark -r c.pcap -q -z follow,tcp,ascii,0
+tshark -r c.pcap -Y 'frame contains &quot;CSG&quot;'
+tcpdump -r c.pcap -nn -A | grep -i -e pass -e user
+</code></pre>
+<blockquote>
+<p>ไฟล์ pcap ที่มีข้อมูลซ่อนแบบไม่เป็น protocol (raw bytes) ให้ <code>strings c.pcap | grep -i ...</code> ด้วย</p>
+</blockquote>
+<div class="pager"><a class="prev" href="../Web/commands.html"><span>ก่อนหน้า</span>Web Commands</a><a class="next" href="../Reverse/reversing_notes.html"><span>ถัดไป</span>Reversing Notes</a></div>
+      <div class="footer">แก้ไขเนื้อหาได้ที่ไฟล์ <code>Network/network_notes.md</code> แล้วรัน <code>python3 build.py</code> ใหม่ · หน้านี้สร้างแบบ static ไม่ต้องต่อเน็ต</div>
+    </main>
+  </div>
+</div>
+<script src="../assets/site.js"></script>
+</body>
+</html>

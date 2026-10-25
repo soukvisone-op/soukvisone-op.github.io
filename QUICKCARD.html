@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>การ์ดคำสั่งลัด (1 หน้า) · Personal Notes</title>
+<meta name="description" content="60 คำสั่งที่ใช้บ่อยสุด — ปริ๊นติดจอได้">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <aside class="sidebar">
+    <a class="brand" href="index.html">
+      <span class="logo">PN</span>
+      <span><b>Personal Notes</b><small>Study notes · Workflow · Reference</small></span>
+    </a>
+    <nav class="nav">
+<a href="index.html"><span class="ico">🏠</span> หน้าแรก</a>
+<div class="nav-group">
+<div class="label">📌 ภาพรวม</div>
+<a class="sub" href="overview.html">ภาพรวมทั้งหมด</a>
+<a class="sub active" href="QUICKCARD.html">การ์ดคำสั่งลัด (1 หน้า)</a>
+<a class="sub" href="RANKING.html">อันดับโจทย์ที่ออกบ่อย</a>
+<a class="sub" href="FILETYPES.html">ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</a>
+<a class="sub" href="APPROVED.html">ซอฟต์แวร์ที่อนุญาต</a>
+</div>
+<div class="nav-group">
+<div class="label">🚀 Workflow</div>
+<a class="sub" href="Workflow/workflow.html">Workflow — ลำดับทำงานเร็ว</a>
+</div>
+<div class="nav-group">
+<div class="label">🔐 Crypto</div>
+<a class="sub" href="Crypto/crypto_cheatsheet.html">Crypto Cheatsheet</a>
+</div>
+<div class="nav-group">
+<div class="label">🧪 Forensics</div>
+<a class="sub" href="Forensics/file_signatures.html">File Signatures</a>
+<a class="sub" href="Forensics/binwalk_commands.html">binwalk &amp; Carving</a>
+<a class="sub" href="Forensics/strings_commands.html">strings</a>
+<a class="sub" href="Forensics/metadata.html">Metadata</a>
+</div>
+<div class="nav-group">
+<div class="label">🌐 Web</div>
+<a class="sub" href="Web/web_cheatsheet.html">Web Cheatsheet</a>
+<a class="sub" href="Web/common_payloads.html">Common Payloads</a>
+<a class="sub" href="Web/commands.html">Web Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">📡 Network</div>
+<a class="sub" href="Network/network_notes.html">Network — อ่านไฟล์ดักจับ</a>
+</div>
+<div class="nav-group">
+<div class="label">🧩 Reverse</div>
+<a class="sub" href="Reverse/reversing_notes.html">Reversing Notes</a>
+<a class="sub" href="Reverse/common_commands.html">Reverse Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">🔍 OSINT</div>
+<a class="sub" href="OSINT/methodology.html">OSINT Methodology</a>
+</div>
+<div class="nav-group">
+<div class="label">🧰 Misc</div>
+<a class="sub" href="Misc/useful_commands.html">Useful Commands</a>
+</div>
+<div class="nav-group"><div class="label">🔎 ค้นหา</div><a class="sub" href="tools.html">Command Index</a><a class="sub" href="index.html#search">ค้นหาทั้งหมด</a></div>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="เมนู">☰</button>
+      <div class="crumb">📌 ภาพรวม / <b>การ์ดคำสั่งลัด (1 หน้า)</b></div>
+      <button class="icon-btn" id="theme-btn" aria-label="ธีม">🌙</button>
+    </header>
+    <main class="content">
+<div class="toolrow"><a href="tools.html#file">file</a><a href="tools.html#strings">strings</a><a href="tools.html#exiftool">exiftool</a><a href="tools.html#binwalk">binwalk</a></div>
+<h1 id="1">การ์ดคำสั่งลัด (1 หน้า)</h1>
+<blockquote>
+<p>พิมพ์ออกมาแปะข้างจอได้ — 60 คำสั่งที่ใช้บ่อยที่สุด
+ทุกคำสั่งอยู่ในรายการซอฟต์แวร์ที่อนุญาต (ดูหน้า "ซอฟต์แวร์ที่อนุญาต")</p>
+</blockquote>
+<hr />
+<h2 id="0">0) สามคำสั่งแรกของทุกไฟล์</h2>
+<pre><code class="language-bash">file target                       # มันคืออะไรจริง ๆ
+strings -n 6 target | head -40    # มีข้อความอะไร
+binwalk target | head -20         # มีอะไรซ่อนข้างใน
+</code></pre>
+<hr />
+<h2 id="1_1">1) ไฟล์/ไบต์</h2>
+<pre><code class="language-bash">xxd -l 64 f                       # ดู magic bytes
+xxd f | head -40                  # ดัมป์ต้นไฟล์
+xxd -s 0x200 -l 128 f             # ดัมป์ที่ offset
+strings -n 6 f                    # ข้อความ ASCII
+strings -el f                     # ข้อความ UTF-16 (ไฟล์ Windows)
+strings -t x f | grep -i flag     # พร้อม offset
+md5sum f; sha256sum f             # hash ไว้เทียบ
+stat f                            # เวลา/สิทธิ์
+</code></pre>
+<hr />
+<h2 id="2">2) รูป / เสียง</h2>
+<pre><code class="language-bash">exiftool -a -u -g1 img.jpg        # metadata ทั้งหมด
+exiftool -n -GPSLatitude -GPSLongitude img.jpg
+zsteg -a img.png                  # LSB ทุกแบบ
+steghide info img.jpg             # มีอะไรซ่อนไหม
+steghide extract -sf img.jpg -p '' -f
+stegseek img.jpg rockyou.txt      # ไล่รหัสให้
+pngcheck -v img.png               # โครงสร้าง PNG
+zbarimg -q --raw qr.png           # QR / barcode
+sox s.wav -n spectrogram -o s.png -x 2000 -y 1025
+multimon-ng -t wav -a DTMF s.wav
+convert -list format | head       # ดูฟอร์แมตที่ ImageMagick อ่านได้
+montage *.jpg -tile 4x3 full.png  # ต่อภาพ
+</code></pre>
+<hr />
+<h2 id="3">3) บีบอัด / เอกสาร</h2>
+<pre><code class="language-bash">unzip -l f.zip                    # ดูรายชื่อ
+unzip -P 'pass' f.zip -d out/     # แตกด้วยรหัส
+zip2john f.zip &gt; h &amp;&amp; john --wordlist=rockyou.txt h
+7z l f.7z &amp;&amp; 7z x f.7z -oout/
+tar -tvf f.tar &amp;&amp; tar -xf f.tar -C out/
+gunzip -c f.gz &gt; out.bin
+pdfid f.pdf                       # มี JS/OpenAction ไหม
+pdftotext -layout f.pdf out.txt
+qpdf --qdf --object-streams=disable f.pdf u.pdf
+mutool extract f.pdf              # ดึงรูป/ฟอนต์
+olevba f.docm                     # macro Office
+oledump.py f.docm                 # stream ข้างใน
+</code></pre>
+<hr />
+<h2 id="4">4) ไบนารี</h2>
+<pre><code class="language-bash">checksec --file=f                 # NX/PIE/Canary
+readelf -h f; readelf -s f | head
+objdump -d -M intel f | head -80
+ltrace -s 200 ./f                 # ฟังก์ชันที่เรียก (strcmp!)
+strace -f -s 200 ./f              # system call
+gdb -q ./f                        # debug
+upx -l f; upx -d f -o u           # แพ็ก/แตกแพ็ก
+pycdc f.pyc                       # แปลง .pyc
+jadx -d out f.apk                 # APK
+capa f.exe                        # พฤติกรรม
+die f.exe                         # ภาษา/แพ็กเกอร์
+</code></pre>
+<hr />
+<h2 id="5">5) เครือข่าย</h2>
+<pre><code class="language-bash">tshark -r c.pcap -q -z io,phs     # protocol ทั้งหมด
+tshark -r c.pcap -q -z conv,tcp   # ใครคุยกับใคร
+tshark -r c.pcap -Y http.request -T fields -e http.host -e http.request.uri
+tshark -r c.pcap --export-objects http,out/ -q
+tshark -r c.pcap -q -z follow,tcp,ascii,0
+tcpdump -r c.pcap -nn | head
+nmap -sV -p- host
+curl -i http://target/
+</code></pre>
+<hr />
+<h2 id="6">6) ข้อความ/รหัส</h2>
+<pre><code class="language-bash">base64 -d &lt;&lt;&lt; 'c2FtcGxl'
+base32 -d &lt;&lt;&lt; 'IFBEG==='
+xxd -r -p &lt;&lt;&lt; '48656c6c6f'
+echo 'text' | tr 'A-Za-z' 'N-ZA-Mn-za-m'      # rot13
+rev &lt;&lt;&lt; 'olleh'
+python3 scripts/decode.py &quot;&lt;ข้อความ&gt;&quot;          # ถอดซ้อน 3 ชั้น + XOR
+hashid '&lt;hash&gt;'
+john --format=raw-md5 --wordlist=rockyou.txt h.txt
+hashcat -m 0 -a 0 h.txt rockyou.txt
+</code></pre>
+<hr />
+<h2 id="7-log">7) ฐานข้อมูล / log</h2>
+<pre><code class="language-bash">sqlite3 f.db &quot;.tables&quot;
+sqlite3 f.db &quot;.dump&quot; | grep -i -e pass -e key
+chainsaw dump f.evtx &gt; ev.txt
+hayabusa csv-timber -f f.evtx -o out.csv --no-wizard
+grep -E '4624|4625|4688|7045|1102' ev.txt | head
+</code></pre>
+<hr />
+<h2 id="8">8) ดิสก์ / หน่วยความจำ</h2>
+<pre><code class="language-bash">mmls disk.img                     # ตารางพาร์ทิชัน
+fls -r -p -o OFF disk.img         # รายชื่อไฟล์
+fls -r -d -p -o OFF disk.img      # เฉพาะที่ถูกลบ
+icat -o OFF disk.img INODE &gt; out
+tsk_recover -e -o OFF disk.img out/
+vol -f mem.raw windows.pslist
+vol -f mem.raw windows.cmdline
+vol -f mem.raw windows.netscan
+</code></pre>
+<hr />
+<h2 id="9">9) ทำงานเร็ว</h2>
+<pre><code class="language-bash">cd $(mktemp -d)                   # โฟลเดอร์ทำงานชั่วคราว
+script -a session.log             # บันทึกทุกอย่างที่พิมพ์
+tmux new -s work                  # เปิด session (Ctrl+B D ออก)
+python3 -m http.server 8000       # รับ-ส่งไฟล์ในวง
+nc -lvnp 4444                     # รับ connection
+grep -a -r -o 'CSG_FLAG{[^}]*}' . | sort -u
+find . -type f -newermt '-1 hour'  # ไฟล์ที่เพิ่งแก้
+du -ah . | sort -rh | head -20     # ไฟล์ใหญ่สุด
+</code></pre>
+<hr />
+<h2 id="10-30">10) ลำดับคิด 30 วินาที</h2>
+<pre><code>file → strings → exiftool → binwalk
+   ↓ ไม่เจอ
+ดูชนิด: รูป→zsteg/steghide · เสียง→spectrogram · ซิป→unzip -l
+        pdf→pdfid · exe→die/upx · pyc→pycdc · disk→mmls · mem→vol
+   ↓ ยังไม่เจอ
+ข้อความ? → decode.py · hash? → john · เว็บ? → curl/ffuf
+</code></pre>
+<div class="pager"><a class="prev" href="overview.html"><span>ก่อนหน้า</span>ภาพรวมทั้งหมด</a><a class="next" href="RANKING.html"><span>ถัดไป</span>อันดับโจทย์ที่ออกบ่อย</a></div>
+      <div class="footer">แก้ไขเนื้อหาได้ที่ไฟล์ <code>QUICKCARD.md</code> แล้วรัน <code>python3 build.py</code> ใหม่ · หน้านี้สร้างแบบ static ไม่ต้องต่อเน็ต</div>
+    </main>
+  </div>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

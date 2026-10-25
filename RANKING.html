@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>อันดับโจทย์ที่ออกบ่อย · Personal Notes</title>
+<meta name="description" content="จัดลำดับ 1-2-3-4 ตามหมวด จาก writeup 38 ข้อ + 10 เทคนิคที่คุ้มสุด">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <aside class="sidebar">
+    <a class="brand" href="index.html">
+      <span class="logo">PN</span>
+      <span><b>Personal Notes</b><small>Study notes · Workflow · Reference</small></span>
+    </a>
+    <nav class="nav">
+<a href="index.html"><span class="ico">🏠</span> หน้าแรก</a>
+<div class="nav-group">
+<div class="label">📌 ภาพรวม</div>
+<a class="sub" href="overview.html">ภาพรวมทั้งหมด</a>
+<a class="sub" href="QUICKCARD.html">การ์ดคำสั่งลัด (1 หน้า)</a>
+<a class="sub active" href="RANKING.html">อันดับโจทย์ที่ออกบ่อย</a>
+<a class="sub" href="FILETYPES.html">ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</a>
+<a class="sub" href="APPROVED.html">ซอฟต์แวร์ที่อนุญาต</a>
+</div>
+<div class="nav-group">
+<div class="label">🚀 Workflow</div>
+<a class="sub" href="Workflow/workflow.html">Workflow — ลำดับทำงานเร็ว</a>
+</div>
+<div class="nav-group">
+<div class="label">🔐 Crypto</div>
+<a class="sub" href="Crypto/crypto_cheatsheet.html">Crypto Cheatsheet</a>
+</div>
+<div class="nav-group">
+<div class="label">🧪 Forensics</div>
+<a class="sub" href="Forensics/file_signatures.html">File Signatures</a>
+<a class="sub" href="Forensics/binwalk_commands.html">binwalk &amp; Carving</a>
+<a class="sub" href="Forensics/strings_commands.html">strings</a>
+<a class="sub" href="Forensics/metadata.html">Metadata</a>
+</div>
+<div class="nav-group">
+<div class="label">🌐 Web</div>
+<a class="sub" href="Web/web_cheatsheet.html">Web Cheatsheet</a>
+<a class="sub" href="Web/common_payloads.html">Common Payloads</a>
+<a class="sub" href="Web/commands.html">Web Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">📡 Network</div>
+<a class="sub" href="Network/network_notes.html">Network — อ่านไฟล์ดักจับ</a>
+</div>
+<div class="nav-group">
+<div class="label">🧩 Reverse</div>
+<a class="sub" href="Reverse/reversing_notes.html">Reversing Notes</a>
+<a class="sub" href="Reverse/common_commands.html">Reverse Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">🔍 OSINT</div>
+<a class="sub" href="OSINT/methodology.html">OSINT Methodology</a>
+</div>
+<div class="nav-group">
+<div class="label">🧰 Misc</div>
+<a class="sub" href="Misc/useful_commands.html">Useful Commands</a>
+</div>
+<div class="nav-group"><div class="label">🔎 ค้นหา</div><a class="sub" href="tools.html">Command Index</a><a class="sub" href="index.html#search">ค้นหาทั้งหมด</a></div>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="เมนู">☰</button>
+      <div class="crumb">📌 ภาพรวม / <b>อันดับโจทย์ที่ออกบ่อย</b></div>
+      <button class="icon-btn" id="theme-btn" aria-label="ธีม">🌙</button>
+    </header>
+    <main class="content">
+<div class="toolrow"><a href="tools.html#strings">strings</a><a href="tools.html#exiftool">exiftool</a><a href="tools.html#binwalk">binwalk</a><a href="tools.html#tshark">tshark</a><a href="tools.html#sqlmap">sqlmap</a></div>
+<h1 id="writeup">อันดับโจทย์ที่ออกบ่อย — เรียงจาก writeup จริง</h1>
+<blockquote>
+<p>นับจาก writeup CSG2025 (38 ข้อ) + CSG2024 ที่รวบรวมไว้
+ตัวเลข = จำนวนโจทย์ที่ใช้เทคนิคนั้น (นับซ้ำได้ถ้าโจทย์เดียวใช้หลายเทคนิค)
+ใช้จัดลำดับการอ่าน/ซ้อม: <strong>ถ้ามีเวลาน้อย ฝึกอันดับ 1-2 ก่อน</strong></p>
+</blockquote>
+<hr />
+<h2 id="crypto-6-writeup">Crypto (6 ข้อใน writeup)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>พบ</th>
+<th>ตัวอย่างโจทย์</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>base64 / hex / encoding ซ้อนชั้น</td>
+<td><strong>3/6</strong></td>
+<td>C3 unf0given, C5 A very old odd file, bad-box</td>
+<td><code>python3 scripts/decode.py "&lt;ข้อความ&gt;"</code></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Vigenère / classical</td>
+<td><strong>2/6</strong></td>
+<td>C2 Plato, C3 unf0given</td>
+<td>หา crib <code>CSG_FLAG</code> → <code>crypto_cheatsheet.md §4</code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>hash + john/hashcat</td>
+<td>1/6</td>
+<td>C4 Analyze the forgotten password</td>
+<td><code>hashid</code> → <code>john --mask=?d?d?d?d</code></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>XOR</td>
+<td>1/6</td>
+<td>bad-box</td>
+<td><code>decode.py</code> (ลอง 256 คีย์ให้)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>Crypto/crypto_cheatsheet.md</code></p>
+<hr />
+<h2 id="forensics-3-writeup-2024">Forensics (3 ข้อใน writeup + ชุด 2024)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>หลักฐาน</th>
+<th>ตัวอย่าง</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>metadata / exiftool</td>
+<td>พบใน Passport, Simple Forensic</td>
+<td>F1 Passport</td>
+<td><code>exiftool -a -u -g1 file</code></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>strings + carve ไฟล์ซ่อน</td>
+<td>พบใน Simple Forensic</td>
+<td>—</td>
+<td><code>strings -n 6</code> → <code>binwalk -e</code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>memory dump (Volatility)</td>
+<td>ชุด 2024 (<code>.dmp</code> + TLS key)</td>
+<td>memory forensics</td>
+<td><code>bash scripts/triage.sh dump.raw</code></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>disk image / file system</td>
+<td>ชุด 2024</td>
+<td>—</td>
+<td><code>mmls</code> → <code>fls -r</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>Forensics/file_signatures.md</code>, <code>binwalk_commands.md</code>, <code>strings_commands.md</code>, <code>metadata.md</code></p>
+<hr />
+<h2 id="stegano-4">Stegano (4 ข้อ)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>พบ</th>
+<th>ตัวอย่าง</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>metadata ซ่อนข้อความ</td>
+<td><strong>2/4</strong></td>
+<td>S3 Hidden in Plain Sight, Cat Tail</td>
+<td><code>exiftool -a -u -g1</code></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>zip/ไฟล์ซ่อนในรูป</td>
+<td>2/4</td>
+<td>S2 Cutest Cat, S3</td>
+<td><code>unzip -l img.jpg</code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>LSB / bit plane</td>
+<td>1/4</td>
+<td>Cat Tail</td>
+<td><code>zsteg -a img.png</code></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>steghide / passphrase</td>
+<td>1/4</td>
+<td>S2</td>
+<td><code>steghide extract -sf img.jpg -p ''</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>Workflow/workflow.md</code> (สคริปต์ stego) + <code>Forensics/binwalk_commands.md</code></p>
+<hr />
+<h2 id="reversing-7">Reversing (7 ข้อ)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>พบ</th>
+<th>ตัวอย่าง</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>strings / static analysis</td>
+<td><strong>4/7</strong></td>
+<td>Fake C2, Packer, Flag Encoder</td>
+<td><code>strings -n 6</code> + <code>strings -el</code></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>debugger (x64dbg/gdb)</td>
+<td><strong>3/7</strong></td>
+<td>Fake C2, Packer, Gorilla</td>
+<td><code>gdb</code> / <code>ltrace</code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Ghidra / radare2</td>
+<td><strong>3/7</strong></td>
+<td>Fake C2, Packer, Gorilla</td>
+<td>เปิด Ghidra → หา <code>main</code></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Go binary (GoReSym)</td>
+<td>2/7</td>
+<td>Fake C2, Gorilla</td>
+<td><code>strings</code> + <code>goresym</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>UPX / packer</td>
+<td>1/7</td>
+<td>Packer</td>
+<td><code>upx -d file</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Python .pyc</td>
+<td>1/7</td>
+<td>Gorilla</td>
+<td><code>pycdc file.pyc</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>PHP nested eval</td>
+<td>1/7</td>
+<td>Matryoshka</td>
+<td>ถอด <code>eval(gzinflate(base64))</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>YARA / capa</td>
+<td>1/7</td>
+<td>Hunt 4 the C2</td>
+<td><code>capa file</code> / <code>yara -r rules/</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>Reverse/reversing_notes.md</code>, <code>common_commands.md</code></p>
+<hr />
+<h2 id="web-4">Web (4 ข้อ)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>พบ</th>
+<th>ตัวอย่าง</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>SQL injection</td>
+<td><strong>2/4</strong></td>
+<td>Easy Web Exploit, Admin</td>
+<td><code>sqlmap -u "…?id=1" --dbs</code></td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>LFI / path traversal</td>
+<td><strong>2/4</strong></td>
+<td>File Viewer, Ping pwn</td>
+<td><code>?file=../../../../etc/passwd</code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>file upload bypass</td>
+<td>1/4</td>
+<td>Easy Web Exploit</td>
+<td>นามสกุล <code>.php5/.phtml</code> + magic bytes</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>command injection</td>
+<td>1/4</td>
+<td>Ping pwn</td>
+<td><code>127.0.0.1;id</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>Web/web_cheatsheet.md</code>, <code>common_payloads.md</code>, <code>commands.md</code></p>
+<hr />
+<h2 id="network-packet-6">Network / Packet (6 ข้อ)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>พบ</th>
+<th>ตัวอย่าง</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>pcap analysis (tshark)</td>
+<td><strong>4/5</strong></td>
+<td>N2 Silent call, N3 Silent signals, SMB3</td>
+<td><code>tshark -r cap.pcap -q -z io,phs</code></td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>HTTP/DNS dissection</td>
+<td><strong>4/5</strong></td>
+<td>N1 Man-in-the-flag, SMB3</td>
+<td><code>--export-objects http,out/</code></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Kerberos / credential</td>
+<td>2/5</td>
+<td>SMB3overKerberos, Relayed &amp; Betrayed</td>
+<td><code>impacket</code> → hashcat 18200</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>VoIP / RTP audio</td>
+<td>1/5</td>
+<td>N2 Silent call</td>
+<td><code>rtpdump</code> → <code>sox</code> spectrogram</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>Misc/useful_commands.md §8</code> + <code>Workflow/workflow.md</code></p>
+<hr />
+<h2 id="osint-4">OSINT (4 ข้อ)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>พบ</th>
+<th>ตัวอย่าง</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>geolocation จากภาพ</td>
+<td><strong>2/4</strong></td>
+<td>O1 Japanese geography, Guess the geolocation</td>
+<td><code>exiftool</code> → อ่านป้าย/ภาษา</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>github / git history</td>
+<td><strong>2/4</strong></td>
+<td>Secret Lesson, GitHub</td>
+<td><code>git log</code> → <code>git show -s --format='%ae'</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>domain / DNS</td>
+<td>0-1</td>
+<td>—</td>
+<td><code>whois</code>, <code>dig TXT</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>username / social</td>
+<td>0-1</td>
+<td>—</td>
+<td>ค้นในเบราว์เซอร์</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>OSINT/methodology.md</code></p>
+<hr />
+<h2 id="misc-4">MISC (4 ข้อ)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>อันดับ</th>
+<th>เทคนิค</th>
+<th>พบ</th>
+<th>ตัวอย่าง</th>
+<th>เริ่มยังไง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>archive + password</td>
+<td>2/4</td>
+<td>M4 Open your password</td>
+<td><code>zip2john</code> → <code>john</code></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>mail / SMTP artifact</td>
+<td>1/4</td>
+<td>M2 Send an email</td>
+<td>ดู header <code>.eml</code> / pcap</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>QR / barcode</td>
+<td>0-1</td>
+<td>—</td>
+<td><code>zbarimg -q --raw</code></td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>audio / spectrogram</td>
+<td>0-1</td>
+<td>—</td>
+<td><code>sox … spectrogram</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>อ่านเพิ่ม:</strong> <code>Misc/useful_commands.md</code></p>
+<hr />
+<h2 id="10-10">สรุป: 10 เทคนิคที่คุ้มที่สุด (ถ้าซ้อมได้แค่ 10 อย่าง)</h2>
+<ol>
+<li><code>strings</code> + <code>grep</code> (ทุกหมวด ใช้บ่อยสุด)</li>
+<li><code>exiftool -a -u -g1</code></li>
+<li><code>file</code> + <code>xxd</code> (ดู magic bytes)</li>
+<li>base64/hex ถอดซ้อน (<code>decode.py</code>)</li>
+<li><code>binwalk -e</code> / <code>unzip -l</code> (หาไฟล์ซ่อน)</li>
+<li><code>tshark</code> สรุป pcap</li>
+<li><code>ltrace</code> / <code>gdb</code> (โจทย์เปรียบเทียบรหัสผ่าน)</li>
+<li><code>zsteg -a</code> (LSB ในรูป)</li>
+<li><code>sqlmap</code> / LFI payload</li>
+<li><code>git log</code> (OSINT)</li>
+</ol>
+<blockquote>
+<p>ทั้ง 10 อย่างมีคำสั่งพร้อมรันในหน้า <code>filetypes.html</code> และ <code>Workflow/workflow.html</code></p>
+</blockquote>
+<div class="pager"><a class="prev" href="QUICKCARD.html"><span>ก่อนหน้า</span>การ์ดคำสั่งลัด (1 หน้า)</a><a class="next" href="FILETYPES.html"><span>ถัดไป</span>ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</a></div>
+      <div class="footer">แก้ไขเนื้อหาได้ที่ไฟล์ <code>RANKING.md</code> แล้วรัน <code>python3 build.py</code> ใหม่ · หน้านี้สร้างแบบ static ไม่ต้องต่อเน็ต</div>
+    </main>
+  </div>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

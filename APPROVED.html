@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ซอฟต์แวร์ที่อนุญาต · Personal Notes</title>
+<meta name="description" content="อนุมัติ/ห้าม + สถานะของ 58 แพ็กเกจที่เราใช้">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div class="wrap">
+  <aside class="sidebar">
+    <a class="brand" href="index.html">
+      <span class="logo">PN</span>
+      <span><b>Personal Notes</b><small>Study notes · Workflow · Reference</small></span>
+    </a>
+    <nav class="nav">
+<a href="index.html"><span class="ico">🏠</span> หน้าแรก</a>
+<div class="nav-group">
+<div class="label">📌 ภาพรวม</div>
+<a class="sub" href="overview.html">ภาพรวมทั้งหมด</a>
+<a class="sub" href="QUICKCARD.html">การ์ดคำสั่งลัด (1 หน้า)</a>
+<a class="sub" href="RANKING.html">อันดับโจทย์ที่ออกบ่อย</a>
+<a class="sub" href="FILETYPES.html">ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</a>
+<a class="sub active" href="APPROVED.html">ซอฟต์แวร์ที่อนุญาต</a>
+</div>
+<div class="nav-group">
+<div class="label">🚀 Workflow</div>
+<a class="sub" href="Workflow/workflow.html">Workflow — ลำดับทำงานเร็ว</a>
+</div>
+<div class="nav-group">
+<div class="label">🔐 Crypto</div>
+<a class="sub" href="Crypto/crypto_cheatsheet.html">Crypto Cheatsheet</a>
+</div>
+<div class="nav-group">
+<div class="label">🧪 Forensics</div>
+<a class="sub" href="Forensics/file_signatures.html">File Signatures</a>
+<a class="sub" href="Forensics/binwalk_commands.html">binwalk &amp; Carving</a>
+<a class="sub" href="Forensics/strings_commands.html">strings</a>
+<a class="sub" href="Forensics/metadata.html">Metadata</a>
+</div>
+<div class="nav-group">
+<div class="label">🌐 Web</div>
+<a class="sub" href="Web/web_cheatsheet.html">Web Cheatsheet</a>
+<a class="sub" href="Web/common_payloads.html">Common Payloads</a>
+<a class="sub" href="Web/commands.html">Web Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">📡 Network</div>
+<a class="sub" href="Network/network_notes.html">Network — อ่านไฟล์ดักจับ</a>
+</div>
+<div class="nav-group">
+<div class="label">🧩 Reverse</div>
+<a class="sub" href="Reverse/reversing_notes.html">Reversing Notes</a>
+<a class="sub" href="Reverse/common_commands.html">Reverse Commands</a>
+</div>
+<div class="nav-group">
+<div class="label">🔍 OSINT</div>
+<a class="sub" href="OSINT/methodology.html">OSINT Methodology</a>
+</div>
+<div class="nav-group">
+<div class="label">🧰 Misc</div>
+<a class="sub" href="Misc/useful_commands.html">Useful Commands</a>
+</div>
+<div class="nav-group"><div class="label">🔎 ค้นหา</div><a class="sub" href="tools.html">Command Index</a><a class="sub" href="index.html#search">ค้นหาทั้งหมด</a></div>
+    </nav>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="เมนู">☰</button>
+      <div class="crumb">📌 ภาพรวม / <b>ซอฟต์แวร์ที่อนุญาต</b></div>
+      <button class="icon-btn" id="theme-btn" aria-label="ธีม">🌙</button>
+    </header>
+    <main class="content">
+<div class="toolrow"><a href="tools.html#check_env.sh">check_env.sh</a><a href="tools.html#install.sh">install.sh</a></div>
+<h1 id="_1">ซอฟต์แวร์ที่อนุญาต — เช็กลิสต์ก่อนใช้</h1>
+<blockquote>
+<p>อ้างอิง: <strong>AJCCBC CTF2026 Tool Review List (r11)</strong> — ชีต "Approved Tool List for Windows", "… for Kali" และ "Unapproved List"
+กฎเหล็ก: <strong>ใช้เฉพาะที่อยู่ใน Approved List</strong> และ <strong>ห้ามใช้บริการออนไลน์วิเคราะห์ไฟล์</strong></p>
+</blockquote>
+<hr />
+<h2 id="1">1) สรุปสถานะชุดเครื่องมือของเรา</h2>
+<p>ตรวจด้วยสคริปต์เทียบกับไฟล์ Excel แล้ว (58 แพ็กเกจใน <code>requirements.txt</code>):</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ผล</th>
+<th>จำนวน</th>
+<th>หมายเหตุ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>อยู่ใน Approved List</td>
+<td>51</td>
+<td>ใช้งานได้</td>
+</tr>
+<tr>
+<td>เป็น Python library / OS utility</td>
+<td>7</td>
+<td><code>python3</code>, <code>pip</code>, <code>coreutils</code>, <code>gmpy2</code>, <code>sympy</code>, <code>markdown</code> — อนุญาต (ไม่ใช่ AI/ML)</td>
+</tr>
+<tr>
+<td>ไม่อนุมัติ</td>
+<td><strong>0</strong></td>
+<td>ไม่มีเครื่องมือเถื่อนในชุดนี้</td>
+</tr>
+</tbody>
+</table></div>
+<p>ตรวจเองได้:</p>
+<pre><code class="language-bash">bash scripts/check_env.sh        # ดูว่าขาดอะไร
+bash install.sh --dry-run          # ดูว่าจะติดตั้งอะไร
+</code></pre>
+<hr />
+<h2 id="2">2) โปรแกรมแยกตามหมวด (ที่เราใช้จริง)</h2>
+<h3 id="crypto">Crypto</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>tool</th>
+<th>ใช้ทำอะไร</th>
+<th>คำสั่ง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CyberChef</code> (เบราว์เซอร์)</td>
+<td>ถอดรหัสซ้อนหลายชั้น, Magic mode</td>
+<td>เปิดใน Chrome</td>
+</tr>
+<tr>
+<td><code>python3</code></td>
+<td>เขียนสคริปต์ถอดเอง</td>
+<td><code>python3 scripts/decode.py "…"</code></td>
+</tr>
+<tr>
+<td><code>openssl</code></td>
+<td>base64, hash, RSA</td>
+<td><code>openssl enc -d -base64 -in f</code></td>
+</tr>
+<tr>
+<td><code>john</code> / <code>hashcat</code></td>
+<td>crack hash</td>
+<td><code>john --format=raw-md5 --wordlist=rockyou.txt h.txt</code></td>
+</tr>
+<tr>
+<td><code>hashid</code></td>
+<td>บอกชนิด hash</td>
+<td><code>hashid -m '&lt;hash&gt;'</code></td>
+</tr>
+<tr>
+<td><code>RsaCtfTool</code></td>
+<td>โจมตี RSA อัตโนมัติ</td>
+<td><code>RsaCtfTool.py -n N -e E --uncipher C</code></td>
+</tr>
+<tr>
+<td><code>sage</code> / <code>sympy</code> / <code>gmpy2</code></td>
+<td>คณิตศาสตร์/RSA</td>
+<td><code>sage -python solve.sage</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="forensics-stegano">Forensics / Stegano</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>tool</th>
+<th>ใช้ทำอะไร</th>
+<th>คำสั่ง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>file</code></td>
+<td>ดูชนิดจริง</td>
+<td><code>file f</code></td>
+</tr>
+<tr>
+<td><code>xxd</code></td>
+<td>ดัมป์/แก้ไบต์</td>
+<td><code>xxd -l 64 f</code></td>
+</tr>
+<tr>
+<td><code>strings</code></td>
+<td>ข้อความในไบนารี</td>
+<td><code>strings -n 6 f</code></td>
+</tr>
+<tr>
+<td><code>exiftool</code></td>
+<td>metadata (รหัส GPS ฯลฯ)</td>
+<td><code>exiftool -a -u -g1 f</code></td>
+</tr>
+<tr>
+<td><code>binwalk</code></td>
+<td>หา/แตกไฟล์ซ่อน</td>
+<td><code>binwalk -e f</code></td>
+</tr>
+<tr>
+<td><code>foremost</code></td>
+<td>กู้ไฟล์จากอิมเมจ</td>
+<td><code>foremost -t all -i f -o out/</code></td>
+</tr>
+<tr>
+<td><code>The Sleuth Kit</code></td>
+<td>disk image</td>
+<td><code>mmls d.img</code> → <code>fls -r -o OFF d.img</code></td>
+</tr>
+<tr>
+<td><code>testdisk</code>/<code>photorec</code></td>
+<td>กู้ไฟล์ที่ลบ</td>
+<td><code>photorec d.img</code></td>
+</tr>
+<tr>
+<td><code>zsteg</code></td>
+<td>LSB ใน PNG/BMP</td>
+<td><code>zsteg -a img.png</code></td>
+</tr>
+<tr>
+<td><code>steghide</code></td>
+<td>ซ่อน/ถอดใน JPG</td>
+<td><code>steghide extract -sf img.jpg -p ''</code></td>
+</tr>
+<tr>
+<td><code>stegseek</code></td>
+<td>ไล่รหัส steghide</td>
+<td><code>stegseek img.jpg rockyou.txt</code></td>
+</tr>
+<tr>
+<td><code>OpenStego</code></td>
+<td>stego อีกตัว</td>
+<td><code>openstego extract -sf img.png -xd out/</code></td>
+</tr>
+<tr>
+<td><code>pngcheck</code></td>
+<td>ตรวจโครงสร้าง PNG</td>
+<td><code>pngcheck -v img.png</code></td>
+</tr>
+<tr>
+<td><code>zbarimg</code></td>
+<td>QR / barcode</td>
+<td><code>zbarimg -q --raw qr.png</code></td>
+</tr>
+<tr>
+<td><code>sox</code></td>
+<td>spectrogram, แปลงเสียง</td>
+<td><code>sox s.wav -n spectrogram -o spec.png</code></td>
+</tr>
+<tr>
+<td><code>multimon-ng</code></td>
+<td>DTMF/มอสในเสียง</td>
+<td><code>multimon-ng -t wav -a DTMF s.wav</code></td>
+</tr>
+<tr>
+<td><code>tshark</code></td>
+<td>วิเคราะห์ pcap</td>
+<td><code>tshark -r c.pcap -q -z io,phs</code></td>
+</tr>
+<tr>
+<td><code>volatility3</code></td>
+<td>memory dump</td>
+<td><code>vol -f m.raw windows.pslist</code></td>
+</tr>
+<tr>
+<td><code>chainsaw</code> / <code>hayabusa</code></td>
+<td>Windows event log</td>
+<td><code>chainsaw dump f.evtx</code></td>
+</tr>
+<tr>
+<td><code>oletools</code></td>
+<td>macro Office</td>
+<td><code>olevba f.docm</code></td>
+</tr>
+<tr>
+<td><code>pdfid</code> / <code>mutool</code> / <code>qpdf</code></td>
+<td>ตรวจ/แตก PDF</td>
+<td><code>pdfid f.pdf</code></td>
+</tr>
+<tr>
+<td><code>sqlite3</code></td>
+<td>เปิดฐานข้อมูล</td>
+<td><code>sqlite3 f.db ".tables"</code></td>
+</tr>
+<tr>
+<td><code>ImageMagick</code></td>
+<td>ต่อ/แปลงรูป (จิ๊กซอว์)</td>
+<td><code>montage *.jpg -tile 4x3 full.png</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="web">Web</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>tool</th>
+<th>ใช้ทำอะไร</th>
+<th>คำสั่ง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>curl</code></td>
+<td>ยิง request เอง</td>
+<td><code>curl -i http://target/</code></td>
+</tr>
+<tr>
+<td><code>Burp Suite CE</code></td>
+<td>intercept/แก้ request</td>
+<td>ตั้ง proxy 127.0.0.1:8080</td>
+</tr>
+<tr>
+<td><code>ffuf</code></td>
+<td>fuzz path/param</td>
+<td><code>ffuf -u http://t/FUZZ -w list.txt</code></td>
+</tr>
+<tr>
+<td><code>feroxbuster</code> / <code>gobuster</code></td>
+<td>หา directory</td>
+<td><code>feroxbuster -u http://t -w list.txt</code></td>
+</tr>
+<tr>
+<td><code>sqlmap</code></td>
+<td>SQLi อัตโนมัติ</td>
+<td><code>sqlmap -u "…?id=1" --batch --dbs</code></td>
+</tr>
+<tr>
+<td><code>jwt_tool</code></td>
+<td>ถอด/แก้ JWT</td>
+<td><code>jwt_tool &lt;token&gt;</code></td>
+</tr>
+<tr>
+<td><code>nmap</code></td>
+<td>สแกนพอร์ต/บริการ</td>
+<td><code>nmap -sV -p- host</code></td>
+</tr>
+<tr>
+<td><code>hydra</code></td>
+<td>brute login</td>
+<td><code>hydra -l admin -P r.txt host http-post-form …</code></td>
+</tr>
+<tr>
+<td><code>katana</code></td>
+<td>crawl เว็บ</td>
+<td><code>katana -u http://t -d 3</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="reverse">Reverse</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>tool</th>
+<th>ใช้ทำอะไร</th>
+<th>คำสั่ง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>checksec</code></td>
+<td>ดูการป้องกัน ELF</td>
+<td><code>checksec --file=f</code></td>
+</tr>
+<tr>
+<td><code>readelf</code> / <code>objdump</code></td>
+<td>โครงสร้าง/asm</td>
+<td><code>objdump -d -M intel f</code></td>
+</tr>
+<tr>
+<td><code>ltrace</code> / <code>strace</code></td>
+<td>ดูการเรียกฟังก์ชัน/syscall</td>
+<td><code>ltrace ./f</code></td>
+</tr>
+<tr>
+<td><code>gdb</code> (+ peda/pwndbg/GEF)</td>
+<td>debug</td>
+<td><code>gdb -q ./f</code></td>
+</tr>
+<tr>
+<td><code>Ghidra</code></td>
+<td>decompile</td>
+<td>เปิด GUI → Analyze</td>
+</tr>
+<tr>
+<td><code>radare2</code> / <code>rizin</code></td>
+<td>วิเคราะห์ในเทอร์มินัล</td>
+<td><code>r2 -A f</code></td>
+</tr>
+<tr>
+<td><code>UPX</code></td>
+<td>แก้ไฟล์ที่แพ็ก</td>
+<td><code>upx -d f -o u</code></td>
+</tr>
+<tr>
+<td><code>pycdc</code> / <code>uncompyle6</code></td>
+<td>แปลง .pyc</td>
+<td><code>pycdc f.pyc</code></td>
+</tr>
+<tr>
+<td><code>pyinstxtractor-ng</code></td>
+<td>แตก PyInstaller</td>
+<td><code>pyinstxtractor-ng f.exe</code></td>
+</tr>
+<tr>
+<td><code>jadx</code> / <code>apktool</code></td>
+<td>APK</td>
+<td><code>jadx -d out f.apk</code></td>
+</tr>
+<tr>
+<td><code>dnSpy</code></td>
+<td>.NET</td>
+<td>เปิด GUI</td>
+</tr>
+<tr>
+<td><code>capa</code> / <code>YARA</code></td>
+<td>วิเคราะห์พฤติกรรม/กฎ</td>
+<td><code>capa f.exe</code></td>
+</tr>
+<tr>
+<td><code>FLOSS</code></td>
+<td>ข้อความที่ถูกเข้ารหัสใน malware</td>
+<td><code>floss f.exe</code></td>
+</tr>
+<tr>
+<td><code>Detect It Easy</code></td>
+<td>บอกภาษา/แพ็กเกอร์</td>
+<td><code>die f.exe</code></td>
+</tr>
+<tr>
+<td><code>ROPgadget</code></td>
+<td>หา gadget (pwn)</td>
+<td><code>ROPgadget --binary f &gt; gadgets.txt</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="osint-misc">OSINT / Misc</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>tool</th>
+<th>ใช้ทำอะไร</th>
+<th>คำสั่ง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exiftool</code></td>
+<td>GPS/กล้อง/เวลา</td>
+<td><code>exiftool -n -GPSLatitude -GPSLongitude f.jpg</code></td>
+</tr>
+<tr>
+<td><code>git</code></td>
+<td>ประวัติ commit/email</td>
+<td><code>git log --format='%ae %ad'</code></td>
+</tr>
+<tr>
+<td><code>curl</code> + <code>dig</code> + <code>whois</code></td>
+<td>โดเมน/DNS</td>
+<td><code>dig +short txt domain</code></td>
+</tr>
+<tr>
+<td><code>subfinder</code></td>
+<td>หา subdomain</td>
+<td><code>subfinder -d domain</code></td>
+</tr>
+<tr>
+<td><code>jq</code></td>
+<td>อ่าน JSON</td>
+<td><code>jq . &lt;(curl -s URL)</code></td>
+</tr>
+<tr>
+<td><code>ffmpeg</code> / <code>mediainfo</code></td>
+<td>ข้อมูลสื่อ</td>
+<td><code>ffprobe f.mp4</code></td>
+</tr>
+<tr>
+<td><code>Impacket</code></td>
+<td>Kerberos/NTLM</td>
+<td><code>GetNPUsers.py domain/ -dc-ip …</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="3-unapproved-list">3) ของต้องห้าม (จาก Unapproved List)</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ห้าม</th>
+<th>ใช้แทน</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>dirsearch</strong></td>
+<td><code>ffuf</code> / <code>feroxbuster</code> / <code>gobuster</code></td>
+</tr>
+<tr>
+<td><strong>IDA Free</strong></td>
+<td><code>Ghidra</code> / <code>radare2</code> / <code>rizin</code></td>
+</tr>
+<tr>
+<td><strong>PEiD</strong></td>
+<td><code>Detect It Easy (die)</code></td>
+</tr>
+<tr>
+<td><strong>stegdetect</strong></td>
+<td><code>zsteg</code> / <code>stegseek</code> / <code>StegSolve</code></td>
+</tr>
+<tr>
+<td><strong>VirusTotal / CrackStation / dCode / online decompiler</strong></td>
+<td>ทำในเครื่องด้วย <code>strings</code>, <code>john</code>, <code>CyberChef</code></td>
+</tr>
+<tr>
+<td><strong>PE-sieve / HollowsHunter / MemProcFS</strong></td>
+<td><code>volatility3</code></td>
+</tr>
+<tr>
+<td><strong>Fiddler / Cygwin / ImHex</strong></td>
+<td><code>Burp</code>, WSL, HxD</td>
+</tr>
+<tr>
+<td><strong>Time Travel Debugging</strong></td>
+<td><code>gdb</code> / <code>x64dbg</code></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>หมายเหตุ: <code>stegsolve</code> <strong>อยู่ใน Approved List</strong> (GUI) แต่ <code>stegdetect</code> <strong>ไม่อนุมัติ</strong> — อย่าสับสน</p>
+</blockquote>
+<hr />
+<h2 id="4">4) กฎการติดตั้ง</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ข้อ</th>
+<th>รายละเอียด</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python library</td>
+<td>เพิ่มได้อิสระ <strong>ยกเว้น</strong> AI/ML (LLM, ML framework, generative AI)</td>
+</tr>
+<tr>
+<td><code>pip install</code></td>
+<td>ใช้ <code>--break-system-packages</code> บน Kali</td>
+</tr>
+<tr>
+<td><code>uv</code></td>
+<td>อยู่ใน Approved List — ใช้แทน pip ได้</td>
+</tr>
+<tr>
+<td>เครื่องมือที่ต้องโหลดเอง</td>
+<td><code>pycdc</code>, <code>RsaCtfTool</code>, <code>chainsaw</code>, <code>hayabusa</code>, <code>sage</code> (ดูท้าย <code>requirements.txt</code>)</td>
+</tr>
+<tr>
+<td>ติดตั้งไม่ครบ</td>
+<td>ไม่เป็นไร — สคริปต์เราข้ามขั้นที่ขาดและบอกวิธีติดตั้งเอง</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="5-30">5) คำสั่งตรวจก่อนแข่ง (30 วินาที)</h2>
+<pre><code class="language-bash">bash scripts/check_env.sh          # ขาดอะไร
+bash install.sh --dry-run            # จะติดตั้งอะไร
+bash install.sh                      # ติดตั้งของที่ขาด (core)
+python3 scripts/run_all.py --help 2&gt;/dev/null || echo &quot;พร้อมใช้&quot;
+</code></pre>
+<p>ถ้า <code>check_env.sh</code> ขึ้น <code>[ขาด]</code> แต่คุณไม่ต้องการใช้ tool นั้น → ข้ามได้ สคริปต์จะข้ามขั้นให้เอง</p>
+<hr />
+<h2 id="6-25">6) ตรวจแล้ว: 25 โปรแกรมที่สคริปต์เรียกใช้จริง</h2>
+<p>เทียบทีละตัวกับไฟล์ Excel (ชีต Approved + Unapproved) — ผลลัพธ์:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>สถานะ</th>
+<th>จำนวน</th>
+<th>รายชื่อ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅ ตรงชื่อใน Approved List</td>
+<td><strong>22</strong></td>
+<td><code>file</code> <code>strings</code> <code>xxd</code> <code>unzip</code> <code>find</code> <code>grep</code> <code>gunzip</code> <code>exiftool</code> <code>binwalk</code> <code>steghide</code> <code>zsteg</code> <code>sox</code> <code>multimon-ng</code> <code>pdfid</code> <code>pdftotext</code> <code>olevba</code> <code>pycdc</code> <code>upx</code> <code>checksec</code> <code>curl</code> <code>ffuf</code> <code>python3</code></td>
+</tr>
+<tr>
+<td>• ยูทิลิตี้ระบบ (มีทุกเครื่อง)</td>
+<td><strong>2</strong></td>
+<td><code>base64</code> <code>md5sum</code> (coreutils)</td>
+</tr>
+<tr>
+<td>• มาพร้อมชุดที่อนุญาต</td>
+<td><strong>1</strong></td>
+<td><code>readelf</code> (binutils ชุดเดียวกับ <code>objdump</code> ที่อยู่ในชีต)</td>
+</tr>
+<tr>
+<td>❌ อยู่ในรายการห้าม</td>
+<td><strong>0</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_2">แยกตามสคริปต์</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>สคริปต์</th>
+<th>เรียกใช้</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>triage.sh</code></td>
+<td>file, strings, exiftool, binwalk, unzip, gunzip, zsteg, steghide, sox, multimon-ng, pdfid, pdftotext, olevba, pycdc, upx, checksec, readelf, md5sum</td>
+</tr>
+<tr>
+<td><code>scan.sh</code></td>
+<td>grep, strings, base64, xxd, find, unzip</td>
+</tr>
+<tr>
+<td><code>web_scan.sh</code></td>
+<td>curl, ffuf, python3</td>
+</tr>
+<tr>
+<td><code>run_all.py</code></td>
+<td>python3 (+ เรียก 3 ตัวข้างบน)</td>
+</tr>
+<tr>
+<td><code>decode.py</code></td>
+<td>python3 (stdlib ล้วน — ไม่เรียกโปรแกรมภายนอก)</td>
+</tr>
+<tr>
+<td><code>check_env.sh</code></td>
+<td>ตรวจเฉพาะชื่อใน requirements.txt (ไม่เรียกใช้จริง)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_3">หมายเหตุ</h3>
+<ul>
+<li><code>readelf</code> ไม่ได้อยู่ในชีตโดยตรง แต่เป็นชุดเดียวกับ <code>objdump</code> (binutils) ซึ่งอนุญาต</li>
+<li><code>base64</code> / <code>md5sum</code> เป็นยูทิลิตี้พื้นฐานของระบบ ไม่ใช่เครื่องมือวิเคราะห์</li>
+<li>ชื่อของที่ห้าม (dirsearch, IDA Free, PEiD, stegdetect, VirusTotal ฯลฯ) ปรากฏเฉพาะในตาราง "ของต้องห้าม" ข้อ 3 เท่านั้น ไม่ถูกเรียกในโค้ด</li>
+</ul>
+<p>ตรวจซ้ำเองได้ด้วย:</p>
+<pre><code class="language-bash">grep -rhoE '\b(dirsearch|ida|peid|stegdetect|virustotal|crackstation|dcode)\b' scripts/ | sort -u
+# → ต้องไม่มีผลลัพธ์
+</code></pre>
+<div class="pager"><a class="prev" href="FILETYPES.html"><span>ก่อนหน้า</span>ไฟล์แบบนี้ → ใช้โปรแกรมอะไร</a><a class="next" href="Workflow/workflow.html"><span>ถัดไป</span>Workflow — ลำดับทำงานเร็ว</a></div>
+      <div class="footer">แก้ไขเนื้อหาได้ที่ไฟล์ <code>APPROVED.md</code> แล้วรัน <code>python3 build.py</code> ใหม่ · หน้านี้สร้างแบบ static ไม่ต้องต่อเน็ต</div>
+    </main>
+  </div>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>
